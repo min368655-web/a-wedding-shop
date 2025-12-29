@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternal Love Wedding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d4a574;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d4a574;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)),
+        url("img/wedding-9124099_1920.jpg"); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #d4a574;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.6s backwards;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #c49563;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.6);
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 48px;
+            color: #d4a574;
+            margin-bottom: 30px;
+        }
+
+        .about p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Services Section */
+        .services {
+            background: #faf8f5;
+            padding: 120px 40px;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services h2 {
+            font-size: 48px;
+            color: #d4a574;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery h2 {
+            font-size: 48px;
+            color: #d4a574;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;   /* ⭐ 핵심 */
+          display: block;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover::before {
+            background: rgba(212, 165, 116, 0.3);
+            opacity: 1;
+        }
+
+
+        /* Contact Section */
+        .contact {
+            background: #faf8f5;
+            padding: 120px 40px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 48px;
+            color: #d4a574;
+            margin-bottom: 30px;
+        }
+
+        .contact p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item span:first-child {
+            font-size: 32px;
+        }
+
+        .contact-item span:last-child {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 42px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .about h2, .services h2, .gallery h2, .contact h2 {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Eternal Love</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>당신의 특별한 날을 위해</h1>
+            <p>평생 간직할 아름다운 순간을 만들어드립니다</p>
+            <a href="#contact" class="cta-button">상담 예약하기</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>
+            Eternal Love는 20년의 전통과 노하우로 고객님의 특별한 날을 함께합니다. 
+            최고급 웨딩드레스와 턱시도, 그리고 맞춤형 스타일링 서비스로 
+            평생 잊지 못할 순간을 만들어드립니다. 당신의 꿈을 현실로 만드는 것이 
+            우리의 가장 큰 기쁨입니다.
+        </p>
+    </section>
+
+    <section id="services" class="services">
+        <div class="services-container">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-icon">👗</div>
+                    <h3>웨딩드레스</h3>
+                    <p>세계적인 디자이너 브랜드부터 맞춤 제작까지 다양한 스타일의 웨딩드레스를 제공합니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤵</div>
+                    <h3>턱시도</h3>
+                    <p>클래식부터 모던까지, 신랑을 더욱 돋보이게 할 프리미엄 턱시도 컬렉션입니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💄</div>
+                    <h3>메이크업 & 헤어</h3>
+                    <p>전문 메이크업 아티스트와 헤어 디자이너가 가장 아름다운 모습을 완성해드립니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💐</div>
+                    <h3>부케 & 소품</h3>
+                    <p>신부의 개성을 살려줄 맞춤 부케와 다양한 웨딩 액세서리를 준비했습니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📸</div>
+                    <h3>스튜디오 촬영</h3>
+                    <p>최신 촬영 장비와 감각적인 스튜디오에서 특별한 웨딩 화보를 남겨드립니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>토탈 케어</h3>
+                    <p>상담부터 본식까지, 모든 과정을 전담 플래너가 책임지고 관리해드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/bouquet-1571668_1920.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="img/bouquet-4445012_1920.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="img/wedding-5584003_1920.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="img/wedding-2784455_1280.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="img/valentines-day-background-2595862_1920.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="img/marriage-2527489_1920.jpg" alt="Photo 1"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>특별한 날을 위한 첫 걸음, 지금 시작하세요</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span>📞</span>
+                <span>02-1234-5678</span>
+            </div>
+            <div class="contact-item">
+                <span>✉️</span>
+                <span>info@eternallove.com</span>
+            </div>
+            <div class="contact-item">
+                <span>📍</span>
+                <span>서울시 강남구 테헤란로 123</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Eternal Love Wedding. All rights reserved.</p>
+        <p>행복한 시작을 함께합니다 ♥</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
